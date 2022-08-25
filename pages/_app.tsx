@@ -4,10 +4,14 @@ import type { AppProps } from 'next/app'
 import styles from '../styles/Home.module.css'
 import { Props } from '../types/Props'
 import { AuthProvider } from '../state/AuthProvider'
+import Head from 'next/head'
 
 function Main({ Component, pageProps }: AppProps) {
   return (
     <>
+      <Head>
+        <title>Create Next App</title>
+      </Head>
       <AuthProvider>
         <Layout>
           <Component {...pageProps} />
@@ -20,14 +24,11 @@ function Main({ Component, pageProps }: AppProps) {
 function Layout({ children }: Props) {
   return (
     <>
-      <header>
+      <header className={styles.header}>
         <strong>My App</strong>
       </header>
 
-      <main className={styles.main}>
-        <h2>Content</h2>
-        {children}
-      </main>
+      <main className={styles.main}>{children}</main>
 
       <footer className={styles.footer}>
         <a
