@@ -1,10 +1,15 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { googleAuthValidate } from './middlewares/google-auth'
-import { GOOGLE_TOKEN_COOKIE } from './utility/constants/app'
 
-export function middleware(request: NextRequest) {
-  console.log('MIDDLEWARE RUNNING')
-  googleAuthValidate(request)
-  console.log('another middelware')
+export async function middleware(request: NextRequest) {
+  console.log(request.nextUrl.pathname)
+  const { pathname } = request.nextUrl
+  if (pathname.startsWith('/api')) {
+    console.log('MIDDLEWARE RUNNING')
+    console.log('googleAuth')
+    await googleAuthValidate(request)
+    console.log('MIDDLEWARE COMPLETED')
+  } else {
+    return
+  }
 }

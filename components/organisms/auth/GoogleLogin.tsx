@@ -11,7 +11,7 @@ export default function GoogleLoginContainer() {
   const [data, setData] = useState(null)
 
   const onSuccess = async (res: any) => {
-    const tokenId = res.credential
+    const tokenId = 'res.credential'
     try {
       // TODO using fetch since useFetcher data is not showing in action
       const response = await fetch('/api/auth/login', {

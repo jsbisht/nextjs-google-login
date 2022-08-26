@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { GOOGLE_CLIENT_ID, GOOGLE_TOKEN_COOKIE } from '../utility/constants/app'
+import {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_TOKEN_COOKIE,
+  UNAUTHORIZED_API_PATH
+} from '../utility/constants/app'
 
 async function validate(request: NextRequest) {
   const tokenid =
@@ -7,16 +11,17 @@ async function validate(request: NextRequest) {
     request.cookies.get(GOOGLE_TOKEN_COOKIE)
   if (tokenid) {
     try {
-      const url = `https://oauth2.googleapis.com/tokeninfo?id_token=${tokenid}`
+      const url = `https://oauth2.googleapis.com/tokeninfo?id_token=${'tokenid'}`
       const result = await fetch(url)
       const data = await result.json()
+      console.dir(data)
       const { aud } = data
       return aud === GOOGLE_CLIENT_ID
     } catch (error) {
-      console.error(error)
+      console.error('validate: ', error)
     }
   }
-  throw Error('Could not validate tokenId')
+  throw Error('tokenId validation failed')
 }
 
 export async function googleAuthValidate(request: NextRequest) {
@@ -29,7 +34,7 @@ export async function googleAuthValidate(request: NextRequest) {
     )
   } catch (error) {
     console.error(error)
-    response = NextResponse.rewrite(request.nextUrl.pathname)
+    response = NextResponse.rewrite(UNAUTHORIZED_API_PATH)
     response.cookies.delete(GOOGLE_TOKEN_COOKIE)
   } finally {
     response.headers.delete(GOOGLE_TOKEN_COOKIE)
