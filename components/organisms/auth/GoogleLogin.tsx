@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-import {
-  GOOGLE_CLIENT_ID,
-  GOOGLE_TOKEN_COOKIE
-} from '../../../utility/constants/app'
+import { GOOGLE_TOKEN_COOKIE } from '../../../utility/constants/app'
 import { useRouter } from 'next/router'
+import { GOOGLE_CLIENT_ID } from '../../../utility/constants/client'
 // import { useNavigate } from 'react-router-dom'
 
 declare var google: any

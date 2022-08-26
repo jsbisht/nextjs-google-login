@@ -1,22 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { googleAuthValidate } from './middlewares/google-auth'
+import { GOOGLE_TOKEN_COOKIE } from './utility/constants/app'
 
 export function middleware(request: NextRequest) {
   console.log('MIDDLEWARE RUNNING')
-  // Setting cookies on the response
-  const response = NextResponse.next()
-  // response.cookies.set('vercel', 'fast')
-
-  // Getting cookies from the request
-  // const cookie = request.cookies.get('vercel')
-
-  // Deleting cookies
-  // response.cookies.delete('vercel')
-  // response.cookies.clear()
-
-  return response
-}
-
-export const config = {
-  matcher: '/api/auth/login'
+  googleAuthValidate(request)
+  console.log('another middelware')
 }

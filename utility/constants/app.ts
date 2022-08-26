@@ -1,6 +1,3 @@
-import getConfig from 'next/config'
-const { publicRuntimeConfig } = getConfig()
-
-export const GOOGLE_CLIENT_ID = publicRuntimeConfig.GOOGLE_CLIENT_ID
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 export const AUTH_LOCAL_DATA = 'auth-local-data'
-export const GOOGLE_TOKEN_COOKIE = 'google-token'
+export const GOOGLE_TOKEN_COOKIE = 'x-google-token'
