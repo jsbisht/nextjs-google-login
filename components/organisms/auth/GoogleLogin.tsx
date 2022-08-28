@@ -2,10 +2,12 @@ import { useEffect } from 'react'
 import { GOOGLE_TOKEN_COOKIE } from '../../../utility/constants/app'
 import { useRouter } from 'next/router'
 import { GOOGLE_CLIENT_ID } from '../../../utility/constants/client'
+import { useAuthContext } from '../../../state/AuthContext'
 
 declare var google: any
 export default function GoogleLoginContainer() {
   const router = useRouter()
+  const { onLogin } = useAuthContext()
 
   const onSuccess = async (res: any) => {
     const tokenId = res.credential
@@ -20,7 +22,7 @@ export default function GoogleLoginContainer() {
         method: 'POST'
       })
       const result = await response.json()
-      console.dir(result)
+      onLogin(result)
       router.replace('/')
     } catch (error) {
       console.log(error)

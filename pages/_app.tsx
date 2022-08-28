@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import { Props } from '../types/Props'
 import { AuthProvider } from '../state/AuthProvider'
 import Head from 'next/head'
+import { AuthenticationChecker } from '../components/organisms/auth/AuthenticationChecker'
 
 function Main({ Component, pageProps }: AppProps) {
   return (
@@ -28,7 +29,9 @@ function Layout({ children }: Props) {
         <strong>My App</strong>
       </header>
 
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        <AuthenticationChecker>{children}</AuthenticationChecker>
+      </main>
 
       <footer className={styles.footer}>
         <a

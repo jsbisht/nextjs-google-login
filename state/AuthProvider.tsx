@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { AuthProviderValue } from '../types/AuthProviderValue'
+import { Props } from '../types/Props'
 import { AuthContext } from './AuthContext'
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: Props) => {
   const [authData, setAuthData] = useState(null)
 
-  const onLogin = (payload) => {
+  const onLogin = (payload: any) => {
     setAuthData(payload)
   }
 
@@ -12,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     setAuthData(null)
   }
 
-  const value = { authData, onLogin, onLogout }
+  const value: AuthProviderValue = { authData, onLogin, onLogout }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
