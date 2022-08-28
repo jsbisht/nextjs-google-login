@@ -1,17 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { GOOGLE_TOKEN_COOKIE } from '../../../utility/constants/app'
 import { useRouter } from 'next/router'
 import { GOOGLE_CLIENT_ID } from '../../../utility/constants/client'
-// import { useNavigate } from 'react-router-dom'
 
 declare var google: any
 export default function GoogleLoginContainer() {
-  // let navigate = useNavigate()
   const router = useRouter()
-  const [data, setData] = useState(null)
 
   const onSuccess = async (res: any) => {
-    const tokenId = 'res.credential'
+    const tokenId = res.credential
     try {
       // TODO using fetch since useFetcher data is not showing in action
       const response = await fetch('/api/auth/login', {
@@ -24,8 +21,7 @@ export default function GoogleLoginContainer() {
       })
       const result = await response.json()
       console.dir(result)
-      setData(result)
-      // navigate('/', { replace: true })
+      router.replace('/')
     } catch (error) {
       console.log(error)
     }
@@ -53,7 +49,6 @@ export default function GoogleLoginContainer() {
         data-auto_select="false"
       ></div>
       <div id="sign-in-div"></div>
-      <div>{JSON.stringify(data, null, 2)}</div>
     </>
   )
 }
