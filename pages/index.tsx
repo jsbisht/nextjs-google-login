@@ -1,7 +1,14 @@
-import type { NextPage } from "next";
+import type { NextPage } from 'next'
+import { useAuthContext } from '../state/AuthContext'
 
 const Home: NextPage = () => {
-  return <h1>Home Page</h1>;
-};
+  const context = useAuthContext()
+  return (
+    <>
+      <h1>Home Page</h1>
+      <div>{JSON.stringify(context?.authData)}</div>
+    </>
+  )
+}
 
-export default Home;
+export default Home
